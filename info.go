@@ -79,6 +79,45 @@ type source struct {
 	Formats            []formatInfo
 }
 
+type module struct {
+	Index    uint32
+	Name     string
+	Argument string
+	NUsed    uint32
+	PropList map[string]string
+}
+
+func (s *module) ReadFrom(r io.Reader) (int64, error) {
+	err := bread(r,
+		uint32Tag, &s.Index,
+		stringTag, &s.Name,
+		stringTag, &s.Argument,
+		uint32Tag, &s.NUsed,
+		&s.PropList)
+	if err != nil {
+		return 0, err
+	}
+
+	return 0, nil
+}
+
+func (c *Client) ModuleList() ([]module, error) {
+	b, err := c.request(commandGetModuleInfoList)
+	if err != nil {
+		return nil, err
+	}
+	var modules []module
+	for b.Len() > 0 {
+		var module module
+		err = bread(b, &module)
+		if err != nil {
+			return nil, err
+		}
+		modules = append(modules, module)
+	}
+	return modules, nil
+}
+
 func (s *source) ReadFrom(r io.Reader) (int64, error) {
 	var portCount uint32
 	err := bread(r,

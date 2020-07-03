@@ -123,13 +123,31 @@ func bwrite(w io.Writer, data ...interface{}) error {
 }
 
 func bread(r io.Reader, data ...interface{}) error {
+
+	nullString := false
+
 	for _, v := range data {
+
+		if nullString {
+			nullString = false
+			continue
+		}
+
 		t, ok := v.(tagType)
 		if ok {
 			var tt tagType
 			if err := binary.Read(r, binary.BigEndian, &tt); err != nil {
 				return err
 			}
+
+			// if we get a null string, we want to skip the next data reading cycle, as the string will be initialized as empty
+			// and we want to exit this cycle, as we now know it's a null string. That's why we have the weird bool flag, to
+			// essentially "continue" twice.
+			if tt == stringNullTag {
+				nullString = true
+				continue
+			}
+
 			if tt != t {
 				return fmt.Errorf("Protcol error: Got type %s but expected %s", tt, t)
 			}

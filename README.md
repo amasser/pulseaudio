@@ -1,4 +1,4 @@
-# pulseaudio 
+# pulseaudio [![GoDoc](https://godoc.org/github.com/lawl/pulseaudio?status.svg)](https://godoc.org/github.com/lawl/pulseaudio)
 Package pulseaudio is a pure-Go (no libpulse) implementation of the PulseAudio native protocol.
 
 Download:

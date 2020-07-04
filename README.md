@@ -13,3 +13,5 @@ This library is a fork of https://github.com/mafik/pulseaudio
 The original library deliberately tries to hide pulseaudio internals and doesn't expose them.
 
 For my usecase I needed the exact opposite, access to pulseaudio internals.
+I will most likely only maintain this as far as is required for [noiseui](https://github.com/lawl/noiseui) to work.
+Pull Requests are however welcome.

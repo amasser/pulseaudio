@@ -12,7 +12,7 @@ func (c *Client) Volume() (float32, error) {
 	if err != nil {
 		return 0, err
 	}
-	sinks, err := c.sinks()
+	sinks, err := c.Sinks()
 	for _, sink := range sinks {
 		if sink.Name != s.DefaultSink {
 			continue
@@ -71,14 +71,13 @@ func (c *Client) SetMute(b bool) error {
 	return err
 }
 
-
 func (c *Client) Mute() (bool, error) {
 	s, err := c.ServerInfo()
 	if err != nil || s == nil {
 		return false, err
 	}
 
-	sinks, err := c.sinks()
+	sinks, err := c.Sinks()
 	if err != nil {
 		return false, err
 	}

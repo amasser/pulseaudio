@@ -1,24 +1,12 @@
 // Package pulseaudio is a pure-Go (no libpulse) implementation of the PulseAudio native protocol.
 //
-// Rather than exposing the PulseAudio protocol directly this library attempts to hide
-// the PulseAudio complexity behind a Go interface.
-// Some of the things which are deliberately not exposed in the API are:
-//
-// → backwards compatibility for old PulseAudio servers
-//
-// → transport mechanism used for the connection (Unix sockets / memfd / shm)
-//
-// → encoding used in the pulseaudio-native protocol
-//
-// Working features
-//
-// Querying and setting the volume.
-//
-// Listing audio outputs.
-//
-// Changing the default audio output.
-//
-// Notifications on config updates.
+// Package pulseaudio is a pure-Go (no libpulse) implementation of the PulseAudio native protocol.
+
+// This library is a fork of https://github.com/mafik/pulseaudio
+// The original library deliberately tries to hide pulseaudio internals and doesn't expose them.
+
+// For my usecase I needed the exact opposite, access to pulseaudio internals.
+
 package pulseaudio
 
 import (
